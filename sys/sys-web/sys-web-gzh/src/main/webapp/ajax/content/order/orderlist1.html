@@ -1,0 +1,318 @@
+
+<title>订单管理</title>
+<head>
+	<link rel="stylesheet" href="../../../assets/css/jquery-ui.css" />
+	<link rel="stylesheet" href="../../../assets/css/bootstrap-datepicker3.css" />
+	<link rel="stylesheet" href="../../../assets/css/ui.jqgrid.css" />
+	<link rel="stylesheet" href="../../../assets/css/select2.css" />
+	<script src="../../../assets/js/date-time/bootstrap-datepicker.js"></script>
+	<script src="../../../assets/js/jqGrid/jquery.jqGrid.js"></script>
+	<script src="../../../assets/js/jqGrid/i18n/grid.locale-en.js"></script>
+	<script src="../../../assets/js/select2.js"></script>
+	<script src="../../../ajax/js/order/orderlist1.js"></script>
+
+</head>
+
+
+<div class="row" >
+	<div class="col-xs-12">
+		<!-- PAGE CONTENT BEGINS -->
+		<!--<div class="well well-sm">
+			You can have a custom jqGrid download here:
+			<a href="http://www.trirand.com/blog/?page_id=6" target="_blank">
+				http://www.trirand.com/blog/?page_id=6
+				<i class="fa fa-external-link bigger-110"></i>
+			</a>
+		</div>-->
+
+		<div class="widget-box">
+			<div class="widget-header">
+				<h4 class="widget-title">查询条件</h4>
+			</div>
+
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<form>
+						<!-- <legend>Form</legend> -->
+						<fieldset class="ordersearch">
+
+							<div class="">
+								    <span class="col-xs-12 col-sm-4">
+										<label>订单状态：</label>
+										<select class="form-control" id="numorderstatus">
+											<option value="">全部</option>
+											<option value="1">未支付</option>
+											<option value="2">已支付未邮寄</option>
+											<option value="3">已邮寄</option>
+										</select>
+									</span>
+
+									<span class="col-xs-12 col-sm-8">
+										<label>订单时间：</label>
+										<div class="input-daterange input-group">
+											<input type="text" id="datordercreatetimebegin" class="input-sm form-control" name="start">
+											<span class="input-group-addon">
+												<i class="">至</i>
+											</span>
+											<input type="text" id="datordercreatetimeend" class="input-sm form-control" name="end">
+										</div>
+									</span>
+
+							</div>
+
+						</fieldset>
+						<div class="clearfix form-actions form-actionsbd">
+							<div class="col-md-9">
+									<span>
+										<b>待处理订单</b>
+										[待核保]
+										[支付处理]
+										[出单处理]
+										[邮寄处理]
+										[全部]
+									</span>
+								<button class="btn btn-info" type="button" id="find_btn" >
+									<i class="ace-icon fa fa-check bigger-110"></i>查询
+								</button>
+								<button class="btn" type="reset" id="reset_btn">
+									<i class="ace-icon fa fa-undo bigger-110"></i>重置
+								</button>
+							</div>
+						</div>
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="ordercont">
+			<table id="grid-table">
+			</table>
+
+			<div id="grid-pager"></div>
+		</div>
+		<!-- PAGE CONTENT ENDS -->
+	</div><!-- /.col -->
+</div><!-- /.row -->
+
+<!-- page specific plugin scripts -->
+<!--隐藏域-->
+<input type="hidden" id="orderId" />
+
+<!--弹出框   核保通过-->
+<div class="pop updateOrderOne">
+	<h3 class="poptit"><a href="##">关闭</a>核保通过</h3>
+	<!--  <h4 class="popnavtit"><span class="sel">基础信息</span><span>销售信息</span><span>保单信息</span></h4>-->
+	<div class="ordercontpop">
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">投保公司</label>
+			<label class="col-sm-3 control-label no-padding-right" id="VC2_COMPANYNAMELabel" for="form-field-1">人保</label>
+		</div><br>
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">核保状态</label>
+			<label class="col-sm-3 control-label no-padding-right"  id="NUM_UNDERWRITINGSTATUSLabel" for="form-field-1">拒保</label>
+		</div><br>
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">核保说明</label>
+			<textarea class="form-control" id="VC2_UNDERWRITINGMSG" placeholder="Default Text"></textarea>
+		</div>
+	</div>
+	<div class="clearfix form-actions form-actionsbd form-actionspop">
+		<div class="col-md-offset-3 col-md-9">
+			<button class="btn btn-info" type="submit" id="updateOrderOneSubmit">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				核保通过
+			</button>
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn closePop" type="reset" id="updateOrderOneClose">
+				<i class="ace-icon fa bigger-110"></i>
+				订单关闭
+			</button>
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn closePop" type="reset">
+				<i class="ace-icon fa bigger-110"></i>
+				取消
+			</button>
+		</div>
+	</div>
+</div>
+
+<!--弹出框   确认支付-->
+<div class="pop updateOrderTwo">
+	<h3 class="poptit"><a href="##">关闭</a>确认支付</h3>
+	<!--  <h4 class="popnavtit"><span class="sel">基础信息</span><span>销售信息</span><span>保单信息</span></h4>-->
+	<div class="ordercontpop">
+		<div>
+			<label>支付方式：</label>
+
+			<select class="form-control"  id="numPayType" name="numPayType">
+				<option value="1" selected ="ture">现金</option>
+				<option value="2">微信</option>
+				<option value="3">刷卡</option>
+				<option value="4">汇款</option>
+				<option value="5">支票</option>
+				<option value="6">授权政策</option>
+			</select>
+		</div>
+		<div class="radio">
+			<label>支付金额：</label>
+			<label>
+				<input name="paymentAmount" value="1" type="radio" checked class="ace">
+				<span class="lbl">全费</span>
+			</label>
+			<label>
+				<input name="paymentAmount" value="2" type="radio" class="ace">
+				<span class="lbl">净费</span>
+			</label>
+		</div>
+		<div class="radio">
+
+		</div>
+	</div>
+	<div class="clearfix form-actions form-actionsbd form-actionspop">
+		<div class="col-md-offset-3 col-md-9">
+			<button class="btn btn-info" type="submit" id="updateOrderTwoSubmit">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				确定
+			</button>
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn closePop" type="reset">
+				<i class="ace-icon fa bigger-110"></i>
+				取消
+			</button>
+		</div>
+	</div>
+</div>
+
+<!--弹出框   出单打印-->
+<div class="pop updateOrderThree">
+	<h3 class="poptit"><a href="##">关闭</a>出单打印</h3>
+	<!--  <h4 class="popnavtit"><span class="sel">基础信息</span><span>销售信息</span><span>保单信息</span></h4>-->
+	<div class="ordercontpop">
+		<div class="form-group">
+			<label class="control-label bolder blue">已出保单</label>
+			<label>
+				<input name="form-field-checkbox" type="checkbox" class="ace">
+				<span class="lbl"> 交强险</span>
+			</label>
+			<label>
+				<input name="form-field-checkbox" type="checkbox" class="ace">
+				<span class="lbl"> 商业险</span>
+			</label>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">交强险保单号</label>
+			<div class="col-sm-9">
+				<input type="text" id="VC2_FORCE_NO" placeholder="交强险保单号" class="col-xs-10 col-sm-5">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">商业险保单号</label>
+			<div class="col-sm-9">
+				<input type="text" id="VC2_BIZ_NO" placeholder="商业险保单号" class="col-xs-10 col-sm-5">
+			</div>
+		</div>
+		<div class="form-group">
+			<label>打印发票</label>
+			<label>
+				<input name="printInvoice" type="radio" class="ace">
+				<span class="lbl">是</span>
+			</label>
+			<label>
+				<input name="printInvoice" type="radio" class="ace">
+				<span class="lbl">否</span>
+			</label>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">发票抬头</label>
+			<div class="col-sm-9">
+				<input type="text" id="VC2_INVOICE_INFO" placeholder="发票抬头" class="col-xs-10 col-sm-5">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">发票号</label>
+			<div class="col-sm-9">
+				<input type="text" id="NUM_INVOICE_NO" placeholder="发票号" class="col-xs-10 col-sm-5">
+			</div>
+		</div>
+	</div>
+	<div class="clearfix form-actions form-actionsbd form-actionspop">
+		<div class="col-md-offset-3 col-md-9">
+			<button class="btn btn-info" type="submit" id="updateOrderThreeSubmit">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				保存
+			</button>
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn closePop" type="reset">
+				<i class="ace-icon fa bigger-110"></i>
+				关闭
+			</button>
+		</div>
+	</div>
+</div>
+
+<!--弹出框   确认邮寄-->
+<div class="pop updateOrderFour">
+	<h3 class="poptit"><a href="##">关闭</a>确认邮寄</h3>
+	<!--  <h4 class="popnavtit"><span class="sel">基础信息</span><span>销售信息</span><span>保单信息</span></h4>-->
+	<div class="ordercontpop">
+		<div class="form-group">
+			<label>邮寄方式：</label>
+			<select class="form-control"  id="postMethod" name="numExamineStatus">
+				<option value="1" selected ="ture">快递</option>
+				<option value="2">自提</option>
+			</select>
+		</div>
+		<div class="form-group selfPick">
+			<label>自提网点：</label>
+			<select class="form-control"  id="VC2_ADDRESSSelf" name="numExamineStatus">
+				<option value="120102">西城黄寺服务网点</option>
+				<option value="120101">朝阳安贞服务网点</option>
+				<option value="120103">怀柔东关服务网点</option>
+				<option value="1">有研</option>
+				<option value="2">大兴服务网点</option>
+				<option value="3">石景山服务网点</option>
+				<option value="4">平谷（合作）</option>
+				<option value="5">房山1（合作）</option>
+				<option value="6">房山2（合作）</option>
+				<option value="7">顺义1（合作）</option>
+				<option value="8">顺义2（合作）</option>
+				<option value="9">通州（合作）</option>
+				<option value="10">密云（合作）</option>
+				<option value="11">昌平（合作）</option>
+				<option value="12">北太平庄（合作）</option>
+			</select>
+		</div>
+		<div class="form-group expressDiv">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">邮寄地址</label>
+			<div class="col-sm-9">
+				<input type="text" id="VC2_ADDRESS" placeholder="邮寄地址" class="col-xs-10 col-sm-5">
+			</div>
+		</div>
+		<div class="form-group expressDiv">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">收件人手机号</label>
+			<div class="col-sm-9">
+				<input type="text" id="VC2_PHONE" placeholder="收件人手机号" class="col-xs-10 col-sm-5">
+			</div>
+		</div>
+		<div class="form-group expressDiv">
+			<label class="col-sm-3 control-label no-padding-right" for="form-field-1">快递单号</label>
+			<div class="col-sm-9">
+				<input type="text" id="VC2_TRACKING_NO" placeholder="快递单号" class="col-xs-10 col-sm-5">
+			</div>
+		</div>
+	</div>
+	<div class="clearfix form-actions form-actionsbd form-actionspop">
+		<div class="col-md-offset-3 col-md-9">
+			<button class="btn btn-info" type="submit" id="updateOrderFourSubmit">
+				<i class="ace-icon fa fa-check bigger-110"></i>
+				保存
+			</button>
+			&nbsp; &nbsp; &nbsp;
+			<button class="btn closePop" type="reset">
+				<i class="ace-icon fa bigger-110"></i>
+				关闭
+			</button>
+		</div>
+	</div>
+</div>

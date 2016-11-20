@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	 <bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" >
+			<list>
+				<value>classpath:redis/redis.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+	
+	<!-- jedis连接池 高版本，连接的是pool2的连接池-->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+	    <property name="maxIdle" value="${redis.maxIdle}" />
+	    <property name="maxTotal" value="${redis.maxActive}" /> 
+	    <property name="maxWaitMillis" value="${redis.maxWait}" />
+	    <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	    <property name="testOnReturn" value="${redis.testOnReturn}" />
+	</bean>
+	
+	<!-- 单机,cluster -->
+<!--	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg name="host" value="192.168.253.178"></constructor-arg>
+		<constructor-arg name="port" value="5000"></constructor-arg>
+		<constructor-arg name="poolConfig" ref="jedisPoolConfig"></constructor-arg>
+	</bean>-->
+	<!-- 配置JedisConnectionFactory -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg name="host" value="${redis.ip}"/>
+		<constructor-arg name="port" value="${redis.port}"/>
+		<constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+	</bean>
+	<bean id="jedisPoolDao" class="com.vme.common.jedis.JedisClientSingle"/>
+
+	<!-- 配置RedisTemplate -->
+	<!--<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory"/>
+	</bean>-->
+	<!-- 配置RedisCacheManager -->
+	<!--<bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+		<constructor-arg name="redisOperations" ref="redisTemplate" />
+		<property name="defaultExpiration" value="${redis.expiration}"/>
+	</bean>-->
+
+	<!-- 配置RedisCacheConfig -->
+	<!--<bean id="redisCacheConfig" class="com.vme.common.jedis.RedisCacheConfig">
+		<constructor-arg ref="jedisConnectionFactory" />
+		<constructor-arg ref="redisTemplate" />
+		<constructor-arg ref="redisCacheManager" />
+	</bean>-->
+
+
+	<!-- 集群,cluster -->
+	<!--<bean id="binaryJedisCluster" class="com.vme.common.jedis.JedisClientCluster">
+		<constructor-arg>
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg value="${redis.ip0}"/>
+					<constructor-arg value="${redis.port}" type="int"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg value="${redis.ip1}"/>
+					<constructor-arg value="${redis.port}" type="int"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg value="${redis.ip2}"/>
+					<constructor-arg value="${redis.port}" type="int"/>
+				</bean>
+			</set>
+		</constructor-arg>
+		<constructor-arg value="${redis.timeout}" type="int"/>
+		<constructor-arg value="${redis.maxRedirections}" type="int"/>
+		<constructor-arg ref="jedisPoolConfig"/>
+	</bean>-->
+</beans>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Language" content="zh-CN"/>
+    <title>chatting</title>
+    <script src='../js/jquery.min.js'></script>
+    <script src='../js/strophe.min.js'></script>
+    <script src='../js/utils.js'></script>
+</head>
+<body>
+<div id='login' style='text-align: center'>
+    <hr>
+    <table style="width:100%;">
+        <tr>
+            <td style="width:70%;">
+                <input type="input" id="tojid"  /> - to jid <br>
+                <textarea id="msg" cols="50" rows="5"></textarea> - message<br>
+                <input id="send" type="button" value="send" />
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <div id='log'></div>
+</div>
+<hr>
+<div id='logchat'></div>
+</body>
+</html>
+<script>
+
+
+    $(document).ready(function () {
+        var tojid = window.location.href.split("=")[1];
+       // alert(tojid);
+        $('#tojid').val(tojid);
+
+    });
+
+
+    $('#send').bind('click', function () {
+
+        var msg=$('#msg').val();
+        toId = $('#tojid').val();
+        fromId =jid;
+
+        console.log(msg);
+        console.log(toId);
+
+        var reply = $msg({to: toId, from: fromId , type: 'chat'}).cnode(Strophe.xmlElement('body', '' ,msg));
+        connection.send(reply.tree());
+       // logsend(new Date().toLocaleTimeString() + "  "+ fromId +":  "  + msg);
+        $('#msg').val('');
+    });
+
+
+
+
+</script>

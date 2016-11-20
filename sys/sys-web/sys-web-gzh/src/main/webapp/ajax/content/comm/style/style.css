@@ -1,0 +1,78 @@
+ul li{list-style:none;}
+
+.errortip{margin:0 0 8px 0; color:red}
+.indfont{color:#4c8fbd; font-size:24px; text-align: center; padding-top:18%;}
+.ordersearch label{float:left; line-height:30px; width:95px; text-align:right; display:inline-block;font-size:12px;}
+.ordersearch .inptxt{float:left;width:160px; height:30px;font-size:12px;}
+.ordersearch .input-group{ width:280px; height:30px;font-size:12px; }
+.ordersearch .input-group-addon{ height:30px;font-size:12px; }
+.ordersearch .form-control{width:160px;height:30px; float:left;font-size:12px;}
+.ordersearch .ordrsdiv{width:100%;display:inline-block;}
+.ordersearch .inptxtdata{border:#d5d5d5 solid 1px;width:115px; height:30px;font-size:12px; padding-left:5px;}
+.widget-box{margin-bottom:10px;  }
+.form-actions .btn-info{ margin-left:20%;}
+.ui-common-table tr th .ui-jqgrid-sortable{text-align:center; }
+.widget-main.no-padding > form > fieldset + .form-actionsbd,.form-actionsbd{padding:4px 0 6px;}
+.widget-main.no-padding > form > fieldset + .form-actionsbd .btn,.form-actionsbd .btn{padding:3px 12px;border:3px solid #FFF}
+
+.pop{border:#ddd solid 1px; width:833px; height:550px; border-radius:5px; position:absolute; top:40%;left:50%; z-index:1000; margin-top:-275px; margin-left:-426px; background:#fff; display:none }
+.pop h3.poptit{background:linear-gradient(to bottom, #307ecc 0%, #307ecc 100%); cursor:move; font-size:14px; height:35px; line-height:35px;color:#fff; padding-left:12px; margin:0px;border-top-left-radius:5px;border-top-right-radius:5px; }
+.pop h3.poptit a{float:right; margin:3px 5px 0 0; color:#fff;}
+.pop h4.popnavtit{ margin-left:5px;}
+.pop h4.popnavtit span,.pop h4.popnavtit a{background:#f5f5f5; font-size:13px; color:#000;width:75px; height:30px; line-height:30px; display:inline-block; border:#e5e5e5 solid 1px; border-bottom:none; float:left; margin-right:10px; text-align:center; border-top-left-radius:5px; border-top-right-radius:5px; cursor:pointer}
+.pop h4.popnavtit span.sel{background:#fff;}
+.pop .popinfo{border:#e5e5e5 solid 1px; margin:0px 5px 5px; height:450px; overflow-y: auto; display:none; }
+.pop .popinfosel{display:inline-block}
+.pop dl dt{ width:100%; height:28px; line-height:28px; background:#f5f5f5; border-bottom:#e5e5e5 solid 1px; border-top:#e5e5e5 solid 1px; padding-left:10px;}
+.pop dl dd{display:inline-block; padding:10px 0;}
+.pop dl dd ul,.pop dl{margin:0;}
+.pop dl dd ul li{float:left;}
+.orderul1 li{width:265px;padding-bottom:10px;display:inline-block}
+.pop dl dd ul.orderul1 li .inptxt,.pop dl dd ul.orderul1 li .form-control,.orderul2 li .form-control{width:155px; height:28px;font-size:12px;float:left;}
+.pop dl dd ul.orderul1 li label,.pop dl dd ul.orderul4 li label{float:left; width:100px;font-size:12px; padding-top:3px;padding-right:3px; text-align:right; display:inline-block;height:30px;}
+.orderul2 li{width:370px;padding-bottom:10px; display:inline-block}
+.orderul2 li label{width:140px;padding-top:3px;font-size:12px; padding-right:3px;height:30px; text-align:right; display:inline-block;float:left;}
+.orderul2 li .inptxt,.orderul2 li .form-control{width:210px;font-size:12px;}
+.orderul2 li .inpfltxt{width:120px;float:left;}
+.laydate_body .laydate_box input,input[readonly]#laydate_y,input[readonly]#laydate_m {color: #939192; background: #fff !important;cursor: default; border-bottom:#ccc solid 2px;}
+.ordercont{position:relative;}
+.funlist{display:inline-block;position:absolute;top:3px; z-index:10;}
+.funlist li{ list-style:none; float:left; }
+.funlist li a{color:#495b79;padding:3px 10px; margin:4px 3px; border:#d8e0e6 solid 1px;background:#f9f9f9;border-radius:3px;display:inline-block}
+.funlist li a:hover{color:#fff;background:#6fb3e0;border:#d8e0e6 solid 1px;text-decoration:none;}
+.pop dl dd ul li label.colred{ color:red}
+
+.pop dl dd ul li{position:relative;}
+.error{color:#d23432;font-size:8px; height:18px; display:none;  position:absolute; left:140px; top:30px; }
+.pop dl dd ul li .errorbdc,.pop dl dd ul li select.errorbdc{border:solid 1px #d23432;}
+.tipcol{color:#f00;font-weight:bold;font-size:16px; line-height:28px; position:absolute; top:4px;}
+.orderul1 li .tipcol{left:260px;}
+.orderul2 li .tipcol{left:350px;}
+.orderul3 li{width:710px; }
+.orderul1 li .error{left:100px;top:28px;}
+.orderul2 li .error{top:28px;}
+.form-actionspop{margin-top:3px;}
+.indtip{background:#ececec; padding:8px 15px; border:#999 solid 1px; border-radius:5px; color:#333; position:absolute; top:30%; left:50%; }
+
+.indlady{background:rgba(0,0,0,.5);filter:Alpha(opacity=0.5);-moz-opacity:0.5; position:absolute;top:0px; left:0px; width:100%; height:100%; z-index:900;text-align:center; padding-top:20%; display:none;}
+
+.ordul li{display:inline-block; float:left;}
+.indlady{display:none}
+.ordul li.lidata{ width:350px;}
+.orderul2 li .inptxtw1{width:102px; margin-right:5px;}
+.pop dl dd ul.orderul1 li .inptxtw1{width:73px; margin-right:5px;float:left}
+
+.redcol{color:red;font-size:16px;float:left; line-height:30px;}
+
+.menuul{display:inline-block;}
+.menuul li button.btn-info{border:3px solid #F00; margin-left:10px;padding:1px 12px !important; }
+dl dd .orderul1 li input.inpdata{ width:72px;border:#d5d5d5 solid 1px;height:30px;font-size:12px; padding-left:3px}
+.pop dl dd ul li label .spalb{float:right;}
+.pop dl dd ul.orderul1 li .inpw{width:75px; margin-right:3px;}
+.orderul4 li{width:470px;padding-bottom:10px; display:inline-block}
+.orderul4 li .inptxt{border:#d5d5d5 solid 1px;width:355px; height:28px;font-size:12px;float:left;}
+.orderul4 li .areatxt{height:150px;}
+
+.imgpic{width:100px; margin:5px 10px;}
+.ladydiv{position:absolute; left:0px; top:0px; width:100%; z-index:1700; text-align:center;  background:red;}
+.ladydiv img{position:absolute;left:20%; top:20%;z-index:1800;}

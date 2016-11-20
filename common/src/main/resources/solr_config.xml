@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solr>
+<!--
+象值可以添加【检索运算符】{"?"表示单个任意字符的通配,* 表示多个任意字符的通配（不能在检索的项开始使用*或者?符号）
+²,~<支持匹配度 0.1-0.9> 表示模糊检索，如检索拼写类似于”roam”的项这样写：roam~将找到形如foam和roams的单
+配置文件详解
+type == 类型
+name == 字段名称
+isQuery == 是否参与查询
+isSort == 是否参与排序
+queryType == 是否使用运算符、是 直接填写要使用的符号、否 n
+ -->
+	<field type="string" name="id" isQuery="n" isSort="n" queryType="n"></field>
+	<field type="string" name="name" isQuery="y" isSort="n" queryType="n"></field>
+	<field type="string" name="namek" isQuery="y" isSort="n" queryType="n"></field>
+	<field type="string" name="title" isQuery="y" isSort="n" queryType="n"></field>
+	<field type="string" name="titlek" isQuery="y" isSort="n" queryType="n"></field>
+	<field type="string" name="doc" isQuery="y" isSort="n" queryType="n"></field>
+	<field type="string" name="sort" isQuery="n" isSort="y" queryType="n"></field>
+</solr>
